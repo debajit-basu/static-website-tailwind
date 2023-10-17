@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "@material-tailwind/react";
+import TopProducts from "./products/TopProducts";
+import FeatProduct from "./products/FeatProduct";
 
 export default function Home() {
-  const navigate = useNavigate();
-
   return (
     <div className="mx-3 my-5">
       <div className="text-2xl font-semibold text-center p-5 text-teal-500 animate-pulse">
@@ -36,9 +36,17 @@ export default function Home() {
         </Carousel>
       </div>
       <div className="text-xl font-semibold text-center p-5 text-teal-500">
-        Feature Product
+        Feature Products
       </div>
-      <div className="h-[30vh] border border-green-800">card section</div>
+      <div className="border boxShadow mb-5">
+        <FeatProduct />
+      </div>
+      <div className="text-xl font-semibold text-center p-5 text-teal-500">
+        Top Products
+      </div>
+      <div className="border mb-5 boxShadow">
+        <TopProducts />
+      </div>
     </div>
   );
 }
