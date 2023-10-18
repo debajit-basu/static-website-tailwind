@@ -1,5 +1,6 @@
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import Footer from "./Footer";
 
 export default function Layout() {
   const navigate = useNavigate();
@@ -30,6 +31,8 @@ export default function Layout() {
         <div className="font-light text-md ">@2023 All right reserved.</div>
       </footer> */}
       <Outlet />
+      <hr />
+      <Footer />
     </div>
   );
 }

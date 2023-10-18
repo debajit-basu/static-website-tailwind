@@ -18,7 +18,10 @@ const PerProduct = ({ product, from }) => {
       </CardHeader>
       <CardBody>
         <Typography variant="h5" color="blue-gray" className="mb-2">
-          {product.price}
+          {product.title}
+        </Typography>
+        <Typography variant="h5" color="blue-gray" className="mb-2">
+          Price: {product.price}
         </Typography>
       </CardBody>
       <CardFooter className="pt-0">

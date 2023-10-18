@@ -9,6 +9,9 @@ import {
   Dialog,
   DialogHeader,
   DialogBody,
+  Textarea,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
@@ -112,7 +115,131 @@ const DialogView = ({ item, open, handleClose }) => {
           Final step to request product at 10% advance
         </Typography>
       </DialogHeader>
-      <DialogBody divider className="h-[400px] overflow-scroll"></DialogBody>
+      <DialogBody divider className="h-[400px] overflow-y-scroll">
+        <div className="grid grid-cols-1 gap-8 mt-1 md:grid md:grid-cols-2 md:gap-4 text-gridtext w-full">
+          <div>
+            <Typography variant="h5" color="blue-gray" className="mb-2">
+              Billing Information
+            </Typography>
+            <div className="mb-2">
+              <Input label="name" />
+            </div>
+            <div className="mb-2">
+              <Input label="email" />
+            </div>
+            <div className="mb-2">
+              <Input label="Phone" />
+            </div>
+            <div className="mb-2">
+              <Textarea label="Billing Address" />
+            </div>
+            <div className="mb-2">
+              <Textarea label="Shipping Address" />
+            </div>
+          </div>
+          <div>
+            <Typography variant="h5" color="blue-gray" className="mb-2">
+              Order Summary
+            </Typography>
+            <table className="w-full min-w-max table-auto text-left">
+              <thead>
+                <tr>
+                  <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal leading-none opacity-70"
+                    >
+                      Product
+                    </Typography>
+                  </th>
+
+                  <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal leading-none opacity-70"
+                    >
+                      Price
+                    </Typography>
+                  </th>
+                  <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal leading-none opacity-70"
+                    >
+                      Quantity
+                    </Typography>
+                  </th>
+                  <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal leading-none opacity-70"
+                    >
+                      Total
+                    </Typography>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="p-4 border-b border-blue-gray-50">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {item.title}
+                    </Typography>
+                  </td>
+                  <td className="p-4 border-b border-blue-gray-50">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {item.price}
+                    </Typography>
+                  </td>
+                  <td className="p-4 border-b border-blue-gray-50">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      1
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      as="a"
+                      href="#"
+                      variant="small"
+                      color="blue-gray"
+                      className="font-medium"
+                    >
+                      {item.price}
+                    </Typography>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <Typography variant="h6" color="blue-gray" className="my-2">
+              Total: {item.price}
+            </Typography>
+            <div className="my-2">
+              <Select label="Payment Method">
+                <Option>Gpay/Paytm/phonepe</Option>
+                <Option>Debit/credit card</Option>
+                <Option>Net banking</Option>
+              </Select>
+            </div>
+            <Button variant="contained">Pay Now</Button>
+          </div>
+        </div>
+      </DialogBody>
     </Dialog>
   );
 };
