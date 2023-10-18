@@ -52,7 +52,7 @@ export default function ProductList() {
     <div className="m-3">
       {data !== null && (
         <div>
-          <Card className="w-full flex-row">
+          <Card className="w-full flex-row bg-[#e8eae9f2]">
             <CardHeader
               shadow={false}
               floated={false}
@@ -76,16 +76,16 @@ export default function ProductList() {
               <div className="mb-2">
                 <Input label="lorem" />
               </div>
-              <Button variant="outlined" onClick={() => setOpen(true)}>
+              <Button variant="contained" onClick={() => setOpen(true)}>
                 proceed
               </Button>
             </CardBody>
           </Card>
 
-          <div className="text-xl font-semibold text-center p-5 text-teal-500">
+          <div className="text-2xl font-semibold text-center p-5 text-[#0a8d14]">
             Related Products
           </div>
-          <div className="border mb-5 boxShadow">
+          <div className="mb-5 boxShadow">
             <div className="grid grid-cols-1 gap-8 mt-5 md:grid md:grid-cols-2 sm:grid-cols-1 md:gap-4 lg:grid lg:grid-cols-3 text-gridtext lg:gap-4 w-full">
               {related.length > 0 &&
                 related.map((e) => (
@@ -115,7 +115,7 @@ const DialogView = ({ item, open, handleClose }) => {
           Final step to request product at 10% advance
         </Typography>
       </DialogHeader>
-      <DialogBody divider className="h-[400px] overflow-y-scroll">
+      <DialogBody divider className="h-[80vh] overflow-y-scroll">
         <div className="grid grid-cols-1 gap-8 mt-1 md:grid md:grid-cols-2 md:gap-4 text-gridtext w-full">
           <div>
             <Typography variant="h5" color="blue-gray" className="mb-2">

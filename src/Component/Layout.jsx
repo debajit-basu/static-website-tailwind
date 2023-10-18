@@ -5,11 +5,11 @@ import Footer from "./Footer";
 export default function Layout() {
   const navigate = useNavigate();
   return (
-    <div className=" bg-amber-50">
-      <div className="font-medium shadow-xl py-3 bg-amber-50">
-        <div className="flex justify-between mx-3 font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-pink-600">
+    <div className="bg-[#f4fff926]">
+      <div className="font-medium shadow-xl py-3 bg-[#c2ffce80]">
+        <div className="flex justify-between mx-3 font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#464d47] to-[#070073]">
           <div className="text-lg cursor-pointer" onClick={() => navigate("/")}>
-            Nayanika jwellery
+            Nayanika Jwellery
           </div>
           <div className="flex justify-end">
             <ul className="list-none flex gap-8 mx-8">

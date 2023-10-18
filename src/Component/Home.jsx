@@ -7,10 +7,10 @@ import FeatProduct from "./products/FeatProduct";
 export default function Home() {
   return (
     <div className="mx-3 my-5">
-      <div className="text-2xl font-semibold text-center p-5 text-teal-500 animate-pulse">
+      <div className="text-2xl font-semibold text-center p-5 text-[#0a8d14] animate-pulse">
         Shop Online With Nayanika Jewellery
       </div>
-      <div className="h-[60vh]">
+      <div className="h-[80vh]">
         <Carousel transition={{ duration: 2 }} className="rounded-xl">
           <img src="/banner1.jpg" alt="image 1" className="h-full w-full" />
           <img
@@ -35,16 +35,16 @@ export default function Home() {
           />
         </Carousel>
       </div>
-      <div className="text-xl font-semibold text-center p-5 text-teal-500">
+      <div className="text-2xl font-semibold text-center p-5 text-[#0a8d14]">
         Feature Products
       </div>
-      <div className="border boxShadow mb-5">
+      <div className="boxShadow mb-5">
         <FeatProduct />
       </div>
-      <div className="text-xl font-semibold text-center p-5 text-teal-500">
+      <div className="text-2xl font-semibold text-center p-5 text-[#0a8d14]">
         Top Products
       </div>
-      <div className="border mb-5 boxShadow">
+      <div className="mb-5 boxShadow">
         <TopProducts />
       </div>
     </div>
