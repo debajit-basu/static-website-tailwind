@@ -7,7 +7,7 @@ import FeatProduct from "./products/FeatProduct";
 export default function Home() {
   return (
     <div>
-      <div className="text-2xl font-semibold text-center p-5 text-[#6b6e70] bg-white animate-pulse">
+      <div className="text-2xl font-semibold text-center p-5 text-[#da9d1d] bg-white animate-pulse">
         Shop Online With Nayanika Jewellery
       </div>
       <div className="h-[80vh]">
@@ -35,7 +35,7 @@ export default function Home() {
         </Carousel>
       </div>
       <div className="min-h-[20vh] text-center mt-24">
-        <p className="mx-5 text-2xl font-thin text-[#6b6e70] flex justify-center">
+        <p className="mx-5 text-2xl font-thin text-[#da9d1d] flex justify-center">
           The brilliance you deserve
         </p>
         <p className="mt-5 flex font-thin text-sm text-[#6b6e70] mx-24">
@@ -46,16 +46,16 @@ export default function Home() {
           exclusive range and astound the world.
         </p>
       </div>
-      <div className="text-2xl font-semibold text-center p-5 text-[#6b6e70]">
+      <div className="text-2xl font-semibold text-center p-5 text-[#da9d1d]">
         Feature Products
       </div>
-      <div className="boxShadow mb-5 md:ml-14">
+      <div className="boxShadow mb-5 mx-2">
         <FeatProduct />
       </div>
-      <div className="text-2xl font-semibold text-center p-5 text-[#6b6e70]">
+      <div className="text-2xl font-semibold text-center p-5 text-[#da9d1d]">
         Top Products
       </div>
-      <div className="mb-5 boxShadow md:ml-14">
+      <div className="mb-5 boxShadow mx-2">
         <TopProducts />
       </div>
     </div>
