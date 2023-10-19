@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 const PerProduct = ({ product, from }) => {
   const navigate = useNavigate();
   return (
-    <Card className="mt-6 w-96 bg-[#b9b6ff]">
+    <Card className="mt-6 mb-10 w-96 bg-[#b9b6ff] shadow-black shadow-2xl">
       <CardHeader color="blue-gray" className="relative h-56">
         <img src={product.src} alt="product_img" />
       </CardHeader>
