@@ -13,11 +13,14 @@ import {
   Select,
   Option,
 } from "@material-tailwind/react";
+import axios from "axios";
+import swal from "sweetalert";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { featureProducts, topProducts } from "../utils";
 import PerProduct from "./products/PerProduct";
+import { data } from "autoprefixer";
 
 export default function ProductList() {
   const { id } = useParams();
@@ -25,6 +28,14 @@ export default function ProductList() {
   const [related, setRelated] = useState([]);
   const [where, setWhere] = useState("");
   const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "Ram Das",
+    phone: "9830254789",
+    email: "demo@topmail.com",
+    quantity: "2",
+    shippingAddress: "Sample addresss kolkata",
+  });
+  const [validation, setValidation] = useState(true);
 
   useEffect(() => {
     if (id) {
@@ -47,6 +58,39 @@ export default function ProductList() {
       setRelated(reletedItem);
     }
   }, [id]);
+
+  const handelOnChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+    setValidation(true);
+  };
+
+  const handelProceed = () => {
+    if (
+      formData.name !== "" &&
+      formData.phone !== "" &&
+      formData.quantity !== "" &&
+      formData.shippingAddress !== "" &&
+      formData.email !== ""
+    ) {
+      alert("ok");
+      setOpen(true);
+    } else {
+      setValidation(false);
+    }
+  };
+
+  const handelClearData = () => {
+    setFormData({
+      name: "",
+      phone: "",
+      email: "",
+      quantity: "",
+      shippingAddress: "",
+    });
+  };
 
   return (
     <div className="m-3">
@@ -77,23 +121,60 @@ export default function ProductList() {
                   {data.price}
                 </Typography>
                 <div className="mb-2">
-                  <Input label="Name" />
+                  <Input
+                    label="Name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handelOnChange}
+                    error={!validation && formData.name === ""}
+                  />
                 </div>
                 <div className="mb-2">
-                  <Input label="Mobile Number" />
+                  <Input
+                    label="Mobile Number"
+                    type="number"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handelOnChange}
+                    error={!validation && formData.phone === ""}
+                  />
                 </div>
                 <div className="mb-2">
-                  <Input label="Quantity" type="number" />
+                  <Input
+                    label="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handelOnChange}
+                    error={!validation && formData.email === ""}
+                  />
                 </div>
                 <div className="mb-2">
-                  <Textarea label="Shipping Address" />
+                  <Input
+                    label="Quantity"
+                    type="number"
+                    name="quantity"
+                    value={formData.quantity}
+                    onChange={handelOnChange}
+                    error={!validation && formData.quantity === ""}
+                  />
+                </div>
+                <div className="mb-2">
+                  <Textarea
+                    label="Shipping Address"
+                    name="shippingAddress"
+                    value={formData.shippingAddress}
+                    onChange={handelOnChange}
+                    error={!validation && formData.shippingAddress === ""}
+                  />
                 </div>
 
                 <div className="flex align-end justify-end">
                   <Button
                     className="bg-[#da9d1dd1] text-black"
                     variant="contained"
-                    onClick={() => setOpen(true)}
+                    onClick={() => {
+                      handelProceed();
+                    }}
                   >
                     proceed
                   </Button>
@@ -120,14 +201,54 @@ export default function ProductList() {
         <DialogView
           open={open}
           item={data}
-          handleClose={() => setOpen(false)}
+          handleClose={() => {
+            handelClearData();
+            setOpen(false);
+          }}
+          data={formData}
         />
       )}
     </div>
   );
 }
 
-const DialogView = ({ item, open, handleClose }) => {
+const DialogView = ({ item, open, handleClose, data }) => {
+  const [paymentMethod, setPaymentMethod] = useState("");
+
+  const handelPay = () => {
+    let dataObj = {
+      collection: "orders",
+      database: "nayanika",
+      dataSource: "Cluster0",
+      document: {
+        name: data.name,
+        age: data.phone,
+      },
+    };
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "https://ap-south-1.aws.data.mongodb-api.com/app/data-smdqp/endpoint/data/v1/action/insertOne",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Request-Headers": "*",
+        "api-key":
+          "WEwrnU0UljyO80BQ89yj3vYK0ymCw93DmHxB7rk95cb8xHv1TGJ3FFMcAZfn2A2K",
+      },
+      data: dataObj,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+        swal("Sorry!", "Something went wrong!", "error");
+      });
+  };
   return (
     <Dialog open={open} handler={handleClose} size="lg">
       <DialogHeader className="justify-center">
@@ -135,133 +256,167 @@ const DialogView = ({ item, open, handleClose }) => {
           Final step to request product at 10% advance
         </Typography>
       </DialogHeader>
-      <DialogBody divider className="h-[80vh] overflow-y-scroll">
-        <div className="grid grid-cols-1 gap-8 mt-1 md:grid md:grid-cols-2 md:gap-4 text-gridtext w-full">
-          <div>
-            <Typography variant="h5" color="blue-gray" className="mb-2">
-              Billing Information
-            </Typography>
-            <div className="mb-2">
-              <Input label="name" />
+      {Object.entries(data).length > 0 && (
+        <DialogBody divider className="h-[80vh] overflow-y-scroll">
+          <div className="grid grid-cols-1 gap-8 mt-1 md:grid md:grid-cols-2 md:gap-4 text-gridtext w-full">
+            <div>
+              <Typography variant="h5" color="blue-gray" className="mb-2">
+                Billing Information
+              </Typography>
+              <div className="mb-2">
+                <Input label="name" value={data.name} />
+              </div>
+              <div className="mb-2">
+                <Input label="email" value={data.email} />
+              </div>
+              <div className="mb-2">
+                <Input label="Phone" value={data.phone} />
+              </div>
+              <div className="mb-2">
+                <Textarea
+                  label="Billing Address"
+                  value={data.shippingAddress}
+                />
+              </div>
+              <div className="mb-2">
+                <Textarea
+                  label="Shipping Address"
+                  value={data.shippingAddress}
+                />
+              </div>
             </div>
-            <div className="mb-2">
-              <Input label="email" />
-            </div>
-            <div className="mb-2">
-              <Input label="Phone" />
-            </div>
-            <div className="mb-2">
-              <Textarea label="Billing Address" />
-            </div>
-            <div className="mb-2">
-              <Textarea label="Shipping Address" />
-            </div>
-          </div>
-          <div>
-            <Typography variant="h5" color="blue-gray" className="mb-2">
-              Order Summary
-            </Typography>
-            <table className="w-full min-w-max table-auto text-left">
-              <thead>
-                <tr>
-                  <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal leading-none opacity-70"
-                    >
-                      Product
-                    </Typography>
-                  </th>
+            <div>
+              <Typography variant="h5" color="blue-gray" className="mb-2">
+                Order Summary
+              </Typography>
+              <table className="w-full min-w-max table-auto text-left">
+                <thead>
+                  <tr>
+                    <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal leading-none opacity-70"
+                      >
+                        Product
+                      </Typography>
+                    </th>
 
-                  <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal leading-none opacity-70"
-                    >
-                      Price
-                    </Typography>
-                  </th>
-                  <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal leading-none opacity-70"
-                    >
-                      Quantity
-                    </Typography>
-                  </th>
-                  <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal leading-none opacity-70"
-                    >
-                      Total
-                    </Typography>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {item.title}
-                    </Typography>
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {item.price}
-                    </Typography>
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      1
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      as="a"
-                      href="#"
-                      variant="small"
-                      color="blue-gray"
-                      className="font-medium"
-                    >
-                      {item.price}
-                    </Typography>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <Typography variant="h6" color="blue-gray" className="my-2">
-              Total: {item.price}
-            </Typography>
-            <div className="my-2">
-              <Select label="Payment Method">
-                <Option>Gpay/Paytm/phonepe</Option>
-                <Option>Debit/credit card</Option>
-                <Option>Net banking</Option>
-              </Select>
+                    <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal leading-none opacity-70"
+                      >
+                        Price
+                      </Typography>
+                    </th>
+                    <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal leading-none opacity-70"
+                      >
+                        Quantity
+                      </Typography>
+                    </th>
+                    <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal leading-none opacity-70"
+                      >
+                        Total
+                      </Typography>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="p-4 border-b border-blue-gray-50">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {item.title}
+                      </Typography>
+                    </td>
+                    <td className="p-4 border-b border-blue-gray-50">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {item.price}
+                      </Typography>
+                    </td>
+                    <td className="p-4 border-b border-blue-gray-50">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {data.quantity}
+                      </Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography
+                        as="a"
+                        href="#"
+                        variant="small"
+                        color="blue-gray"
+                        className="font-medium"
+                      >
+                        {parseInt(item.price.split("Rs")[1]) *
+                          parseInt(data.quantity)}
+                      </Typography>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <Typography variant="h6" color="blue-gray" className="my-2">
+                Total:{" "}
+                {parseInt(item.price.split("Rs")[1]) * parseInt(data.quantity)}
+              </Typography>
+              <Typography variant="h6" color="blue-gray" className="my-2">
+                Total with 10% booking amount:{" "}
+                {Math.round(
+                  (parseInt(item.price.split("Rs")[1]) *
+                    parseInt(data.quantity) *
+                    10) /
+                    100
+                )}
+              </Typography>
+              <div className="my-2">
+                <Select
+                  label="Payment Method"
+                  onChange={(e) => setPaymentMethod(e)}
+                  value={paymentMethod}
+                >
+                  <Option value={"Payment gateway"}>Payment gateway</Option>
+                  <Option value="Initial booking">Initial booking</Option>
+                </Select>
+                {paymentMethod === "Payment gateway" && (
+                  <span className="font-semibold text-sm">
+                    **Pay via payment gateway is in progress
+                  </span>
+                )}
+              </div>
+              <Button
+                variant="contained"
+                className="bg-[#da9d1dd1] text-black"
+                disabled={
+                  paymentMethod === "Payment gateway" || paymentMethod == ""
+                }
+                onClick={handelPay}
+              >
+                Pay Now
+              </Button>
             </div>
-            <Button variant="contained" className="bg-[#da9d1dd1] text-black">
-              Pay Now
-            </Button>
           </div>
-        </div>
-      </DialogBody>
+        </DialogBody>
+      )}
     </Dialog>
   );
 };

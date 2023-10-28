@@ -50,13 +50,13 @@ export default function Home() {
         Feature Products
       </div>
       <div className="boxShadow mb-5 mx-2">
-        <FeatProduct />
+        <FeatProduct location={"home"} />
       </div>
       <div className="text-2xl font-semibold text-center p-5 text-[#da9d1d]">
         Top Products
       </div>
       <div className="mb-5 boxShadow mx-2">
-        <TopProducts />
+        <TopProducts location={"home"} />
       </div>
     </div>
   );

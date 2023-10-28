@@ -1,7 +1,9 @@
 import React from "react";
 import { Input, Button } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = React.useState("");
   const onChange = ({ target }) => setEmail(target.value);
   return (
@@ -40,14 +42,25 @@ const Footer = () => {
       </div>
       <div className="flex justify-between mx-10 mt-7 flex-col md:flex-row">
         <div className="text-[#6b6e70]">
-          <ul className="flex gap-5 flex-col">
+          <ul className="flex gap-3 flex-col">
             <li>
               Contact us
               <p className="mx-5 my-1">sales.nayanika@gmail.com</p>
-              <p className="mx-5 my-1">Habra kolkata</p>
+              <p className="mx-5 my-1">kolkata</p>
             </li>
 
-            <li>Policies</li>
+            <li
+              className="cursor-pointer hover:text-gray-900 hover:font-semibold"
+              onClick={() => navigate("/policy")}
+            >
+              Policy
+            </li>
+            <li
+              className="cursor-pointer hover:text-gray-900 hover:font-semibold"
+              onClick={() => navigate("/terms-conditions")}
+            >
+              Terms & Conditions
+            </li>
             <li>Our story</li>
           </ul>
         </div>

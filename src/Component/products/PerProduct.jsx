@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 
-const PerProduct = ({ product, from }) => {
+const PerProduct = ({ product, from, location }) => {
   const navigate = useNavigate();
   return (
     <Card className="mt-6 mb-10 w-96 bg-[#e2e2ff] shadow-[#ad780a] shadow-xl">
@@ -25,12 +25,29 @@ const PerProduct = ({ product, from }) => {
         </Typography>
       </CardBody>
       <CardFooter className="pt-0">
-        <Button
-          className="w-full bg-[#da9d1dd1] text-black"
-          onClick={() => navigate(`/product/${product.id}-${from}`)}
-        >
-          View
-        </Button>
+        {location === "home" ? (
+          <div className="flex justify-between gap-3">
+            <Button
+              className="w-full bg-[#da9d1dd1] text-black"
+              onClick={() => navigate(`/product/${product.id}-${from}`)}
+            >
+              Add product
+            </Button>
+            <Button
+              className="w-full bg-[#da9d1dd1] text-black"
+              onClick={() => navigate(`/products`)}
+            >
+              View
+            </Button>
+          </div>
+        ) : (
+          <Button
+            className="w-full bg-[#da9d1dd1] text-black"
+            onClick={() => navigate(`/product/${product.id}-${from}`)}
+          >
+            View
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );

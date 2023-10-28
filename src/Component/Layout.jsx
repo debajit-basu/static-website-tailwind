@@ -19,11 +19,17 @@ export default function Layout() {
               {/* <li className="font-normal cursor-pointer hover:text-white">
                 Category
               </li> */}
-              <li className="font-normal cursor-pointer hover:text-white">
-                About us
+              <li
+                className="font-normal cursor-pointer hover:text-white"
+                onClick={() => navigate("/")}
+              >
+                Home
               </li>
-              <li className="font-normal cursor-pointer hover:text-white">
-                contact us
+              <li
+                className="font-normal cursor-pointer hover:text-white"
+                onClick={() => navigate("/products")}
+              >
+                Products
               </li>
             </ul>
           </div>
