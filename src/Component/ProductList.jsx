@@ -13,7 +13,7 @@ import {
   Select,
   Option,
 } from "@material-tailwind/react";
-import axios from "axios";
+// import axios from "axios";
 import swal from "sweetalert";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
@@ -75,7 +75,6 @@ export default function ProductList() {
       formData.shippingAddress !== "" &&
       formData.email !== ""
     ) {
-      alert("ok");
       setOpen(true);
     } else {
       setValidation(false);
@@ -216,38 +215,8 @@ const DialogView = ({ item, open, handleClose, data }) => {
   const [paymentMethod, setPaymentMethod] = useState("");
 
   const handelPay = () => {
-    let dataObj = {
-      collection: "orders",
-      database: "nayanika",
-      dataSource: "Cluster0",
-      document: {
-        name: data.name,
-        age: data.phone,
-      },
-    };
-
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "https://ap-south-1.aws.data.mongodb-api.com/app/data-smdqp/endpoint/data/v1/action/insertOne",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Request-Headers": "*",
-        "api-key":
-          "WEwrnU0UljyO80BQ89yj3vYK0ymCw93DmHxB7rk95cb8xHv1TGJ3FFMcAZfn2A2K",
-      },
-      data: dataObj,
-    };
-
-    axios
-      .request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-        swal("Sorry!", "Something went wrong!", "error");
-      });
+    swal("Your order is successfull. we will get back to you within 24 hours.");
+    handleClose();
   };
   return (
     <Dialog open={open} handler={handleClose} size="lg">
