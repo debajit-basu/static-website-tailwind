@@ -1,12 +1,19 @@
 import React from "react";
 import TopProducts from "./products/TopProducts";
 import FeatProduct from "./products/FeatProduct";
+import ImitationProduct from "./products/ImitationProduct";
 
 export default function ProductDetails() {
   return (
     <div>
       <div className="text-2xl font-semibold text-center p-5 text-[#da9d1d] bg-white animate-pulse">
         Shop Online With Nayanika Jewellery
+      </div>
+      <div className="text-2xl font-semibold text-center p-5 text-[#da9d1d]">
+        Imitation Products
+      </div>
+      <div className="boxShadow mb-5 mx-2">
+        <ImitationProduct location={"productDetails"} />
       </div>
       <div className="text-2xl font-semibold text-center p-5 text-[#da9d1d]">
         Feature Products

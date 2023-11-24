@@ -18,7 +18,7 @@ import swal from "sweetalert";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import { featureProducts, topProducts } from "../utils";
+import { featureProducts, topProducts, imitationProduct } from "../utils";
 import PerProduct from "./products/PerProduct";
 import { data } from "autoprefixer";
 
@@ -52,6 +52,12 @@ export default function ProductList() {
         item = featureProducts.find((e) => e.id === +pId);
         reletedItem = featureProducts.filter((e) => e.id !== +pId);
         setWhere("feat");
+      }
+
+      if (from === "imitation") {
+        item = imitationProduct.find((e) => e.id === +pId);
+        reletedItem = imitationProduct.filter((e) => e.id !== +pId);
+        setWhere("imitation");
       }
 
       if (item) setData(item);

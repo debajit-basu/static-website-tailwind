@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Carousel } from "@material-tailwind/react";
 import TopProducts from "./products/TopProducts";
 import FeatProduct from "./products/FeatProduct";
+import ImitationProduct from "./products/ImitationProduct";
 
 export default function Home() {
   return (
@@ -57,6 +58,12 @@ export default function Home() {
       </div>
       <div className="mb-5 boxShadow mx-2">
         <TopProducts location={"home"} />
+      </div>
+      <div className="text-2xl font-semibold text-center p-5 text-[#da9d1d]">
+        Imitation Products
+      </div>
+      <div className="boxShadow mb-5 mx-2">
+        <ImitationProduct location={"home"} />
       </div>
     </div>
   );
