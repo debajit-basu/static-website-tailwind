@@ -4,8 +4,14 @@ import FeatProduct from "./products/FeatProduct";
 import ImitationProduct from "./products/ImitationProduct";
 
 export default function ProductDetails() {
+  const pageRef = React.useRef();
+  React.useEffect(() => {
+    pageRef.current.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, []);
   return (
-    <div>
+    <div ref={pageRef}>
       <div className="text-2xl font-semibold text-center p-5 text-[#da9d1d] bg-white animate-pulse">
         Shop Online With Nayanika Jewellery
       </div>
