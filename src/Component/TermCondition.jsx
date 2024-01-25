@@ -293,6 +293,11 @@ export default function TermCondition() {
             loss or damage of any nature.
           </p>{" "}
         </div>
+        <hr />
+        <div className="flex justify-evenly p-3">
+          <p>Client’s Legal Entity Name</p>
+          <p>MINTU PAL (NAYANIKA JEWELLERS)</p>
+        </div>
       </div>
     </div>
   );

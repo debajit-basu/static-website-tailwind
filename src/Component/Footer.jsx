@@ -45,8 +45,11 @@ const Footer = () => {
           <ul className="flex gap-3 flex-col">
             <li>
               Contact us
-              <p className="mx-5 my-1">sales.nayanika@gmail.com</p>
-              <p className="mx-5 my-1">kolkata</p>
+              <p className="mx-5 my-1">Nayanika jewellers</p>
+              <p className="mx-5 my-1">
+                162, M M Feeder Road. Kolkata - 700057 (Ramkrishna pally)
+              </p>
+              <p className="mx-5 my-1">Ph: 9051026929</p>
             </li>
 
             <li
